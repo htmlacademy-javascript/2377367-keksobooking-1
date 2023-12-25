@@ -3,8 +3,6 @@ import {getRandomPositiveFloat} from './util.js';
 import {getRandomArrayElement} from './util.js';
 import {getRand} from './util.js';
 
-const DIGITS = 5;
-
 const COUNT = 10;
 
 const AUTOR_LIST = [
@@ -106,7 +104,8 @@ const LONGITUDE = {
   max: 139.80000,
 };
 
-function getNewData (index) {
+function getNewAdData (index) {
+  const DIGITS = 5;
   const randLat = getRandomPositiveFloat(LATITUDE.min, LATITUDE.max, DIGITS);
   const randLng = getRandomPositiveFloat(LONGITUDE.min, LONGITUDE.max, DIGITS);
   return {
@@ -136,7 +135,7 @@ function getNewData (index) {
 function generateData () {
   const dataList = [];
   for (let i = 0; i < COUNT; i++) {
-    dataList.push(getNewData(i));
+    dataList.push(getNewAdData(i));
   }
 
   return dataList;
