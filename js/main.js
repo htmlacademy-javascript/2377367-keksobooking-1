@@ -1,1 +1,1 @@
-import { generateData } from './data.js';
+import './similar.js';
