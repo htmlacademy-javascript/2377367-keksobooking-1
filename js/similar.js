@@ -1,23 +1,7 @@
-import {generateData} from './data.js';
-const data = generateData();
 
-const map = document.querySelector('#map-canvas');
-const cardTemplate = document.querySelector('#card').content;
+import {getType} from './util.js';
 
-const getType = function (type) {
-  switch (type) {
-    case 'flat':
-      return 'Квартира';
-    case 'bungalow':
-      return 'Бунгало';
-    case 'house':
-      return 'Дом';
-    case 'palace':
-      return 'Дворец';
-    case 'hotel':
-      return 'Отель';
-  }
-};
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const getNewCardElement = function (card) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -53,6 +37,6 @@ const getNewCardElement = function (card) {
   return cardElement;
 };
 
-const firstCard = getNewCardElement(data[0]);
+export {getNewCardElement};
 
-map.appendChild(firstCard);
+

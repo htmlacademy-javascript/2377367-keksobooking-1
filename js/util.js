@@ -26,7 +26,23 @@ function getRand () {
   return Math.random() - 0.5;
 }
 
+const getType = function (type) {
+  switch (type) {
+    case 'flat':
+      return 'Квартира';
+    case 'bungalow':
+      return 'Бунгало';
+    case 'house':
+      return 'Дом';
+    case 'palace':
+      return 'Дворец';
+    case 'hotel':
+      return 'Отель';
+  }
+};
+
 export {getRandomPositiveInteger};
 export {getRandomPositiveFloat};
 export {getRandomArrayElement};
 export {getRand};
+export {getType};
