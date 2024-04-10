@@ -11,26 +11,26 @@ const pristine = new Pristine(
 
 const rooms = adForm.querySelector('#room_number');
 const guests = adForm.querySelector('#capacity');
-const roomsCapacity = {
+const ROOMS_CAPACITY = {
   1 : ['1'],
   2 : ['1', '2'],
   3 : ['1', '2', '3'],
   100 : ['0']
 };
 
-const guestsCapacity = {
+const GUESTS_CAPACITY = {
   0 : ['100'],
   1 : ['1', '2', '3'],
-  2 : ['1', '2'],
+  2 : ['1', '2', '3'],
   3 : ['3']
 };
 
 function validateGuests () {
-  return roomsCapacity[rooms.value].includes(guests.value);
+  return ROOMS_CAPACITY[rooms.value].includes(guests.value);
 }
 
 function validateRooms () {
-  return guestsCapacity[guests.value].includes(rooms.value);
+  return GUESTS_CAPACITY[guests.value].includes(rooms.value);
 }
 
 function getGuestsErrorMessage () {
@@ -51,7 +51,7 @@ function onRoomsGuestsChange () {
 
 const typeOfHousing = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
-const typeCosts = {
+const TYPE_COSTS = {
   bungalow: '0',
   flat: '1000',
   hotel: '3000',
@@ -60,18 +60,18 @@ const typeCosts = {
 };
 
 function setMinPrice () {
-  price.setAttribute('placeholder', typeCosts[typeOfHousing.value]);
-  price.setAttribute('min', typeCosts[typeOfHousing.value]);
+  price.setAttribute('placeholder', TYPE_COSTS[typeOfHousing.value]);
+  price.setAttribute('min', TYPE_COSTS[typeOfHousing.value]);
 }
 
 typeOfHousing.addEventListener('change', setMinPrice);
 
 function validatePrice () {
-  return Number(price.value) > Number(typeCosts[typeOfHousing.value]);
+  return Number(price.value) > Number(TYPE_COSTS[typeOfHousing.value]);
 }
 
 function getPriceErrorMessage () {
-  return `Цена выбранного типа жилья не менее ${typeCosts[typeOfHousing.value]} рублей за ночь`;
+  return `Цена выбранного типа жилья не менее ${TYPE_COSTS[typeOfHousing.value]} рублей за ночь`;
 }
 
 pristine.addValidator(price, validatePrice, getPriceErrorMessage);
