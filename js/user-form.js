@@ -21,7 +21,7 @@ const ROOMS_CAPACITY = {
 const GUESTS_CAPACITY = {
   0 : ['100'],
   1 : ['1', '2', '3'],
-  2 : ['1', '2', '3'],
+  2 : ['2', '3'],
   3 : ['3']
 };
 
