@@ -48,7 +48,7 @@ function onRoomsGuestsChange () {
   pristine.validate(guests);
 }
 
-
+const sliderPrice = document.querySelector('.ad-form__slider');
 const typeOfHousing = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
 const TYPE_COSTS = {
@@ -99,4 +99,31 @@ timeOut.addEventListener('change', onSetTimeIn);
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.validate();
+});
+
+let startPrice;
+
+noUiSlider.create(sliderPrice, {
+  range: {
+    min: 0,
+    max: 100000,
+  },
+  start: 5000,
+  step: 1,
+  connect: 'lower',
+  format: {
+    to: (value) => value.toFixed(0),
+    from: (value) => parseInt(value, 10),
+  },
+});
+
+sliderPrice.noUiSlider.on('update', () => {
+  price.value = sliderPrice.noUiSlider.get();
+});
+
+typeOfHousing.addEventListener('change', () => {
+  startPrice = TYPE_COSTS[typeOfHousing.value];
+  sliderPrice.noUiSlider.updateOptions({
+    start: startPrice,
+  });
 });

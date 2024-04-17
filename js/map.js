@@ -9,13 +9,19 @@ const adress = document.querySelector('#address');
 document.addEventListener('load', turnOffForm);
 document.addEventListener('load', turnOffMapFilters);
 
+// Координаты центра Токио
+const COORDINATES_CENTER_TOKYO = {
+  lat: 35.67325,
+  lng: 139.75908,
+};
+
 //  СОЗДАНИЕ КАРТЫ И АКТИВАЦИЯ ФОРМЫ И ФИЛЬТРОВ
 const map = L.map('map-canvas')
   .on('load', turnOnForm)
   .on('load', turnOnMapFilters)
   .setView({
-    lat: 35.67325,
-    lng: 139.75908,
+    lat: COORDINATES_CENTER_TOKYO.lat,
+    lng: COORDINATES_CENTER_TOKYO.lng,
   }, 11);
 
 L.tileLayer(
@@ -27,15 +33,15 @@ L.tileLayer(
 
 // СОЗДАНИЕ ОСНОВНОГО МАРКЕРА
 const mainPinIcon = L.icon({
-  iconUrl: '..//img/main-pin.svg',
+  iconUrl: './/img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
 
 const mainPinMarker = L.marker(
   {
-    lat: 35.67325,
-    lng: 139.75908,
+    lat: COORDINATES_CENTER_TOKYO.lat,
+    lng: COORDINATES_CENTER_TOKYO.lng,
   },
   {
     draggable: true,
@@ -47,23 +53,23 @@ mainPinMarker.addTo(map);
 
 // ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС - РЕШЕНИЕ НЕВЕРНОЕ
 mainPinMarker.on('move', (evt) => {
-  const latLang = evt.target.getLatLng().toString();
-  const arr = latLang.split('');
+  const latLng = evt.target.getLatLng().toString();
+  const arr = latLng.split('');
   const Lat = arr.slice(7, 15).join('');
-  const Lan = arr.slice(18, 27).join('');
-  adress.value = `Lat: ${Lat}, Lan: ${Lan}`;
+  const Lng = arr.slice(18, 27).join('');
+  adress.value = `Lat: ${Lat}, Lng: ${Lng}`;
 });
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
 resetButton.addEventListener('click', () => {
   mainPinMarker.setLatLng({
-    lat: 35.67325,
-    lng: 139.75908,
+    lat: COORDINATES_CENTER_TOKYO.lat,
+    lng: COORDINATES_CENTER_TOKYO.lng,
   });
 
   map.setView({
-    lat: 35.67325,
-    lng: 139.75908,
+    lat: COORDINATES_CENTER_TOKYO.lat,
+    lng: COORDINATES_CENTER_TOKYO.lng,
   }, 11);
 });
 
@@ -71,7 +77,7 @@ resetButton.addEventListener('click', () => {
 const dataList = generateData();
 
 const pinIcon = L.icon({
-  iconUrl: '..//img/pin.svg',
+  iconUrl: './/img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
