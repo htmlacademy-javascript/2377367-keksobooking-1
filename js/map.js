@@ -1,5 +1,5 @@
 import {generateData} from './data.js';
-import {turnOffForm, turnOnForm} from './form.js';
+import {turnOffForm, turnOnForm, formElement} from './form.js';
 import {turnOffMapFilters, turnOnMapFilters} from './filter.js';
 import {getNewCardElement} from './similar.js';
 const resetButton = document.querySelector('.ad-form__reset');
@@ -53,12 +53,15 @@ mainPinMarker.addTo(map);
 
 // ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС - РЕШЕНИЕ НЕВЕРНОЕ
 mainPinMarker.on('move', (evt) => {
-  const latLng = evt.target.getLatLng().toString();
-  const arr = latLng.split('');
-  const Lat = arr.slice(7, 15).join('');
-  const Lng = arr.slice(18, 27).join('');
-  adress.value = `Lat: ${Lat}, Lng: ${Lng}`;
+  const addressLat = evt.target.getLatLng().lat.toFixed(5);
+  const addressLng = evt.target.getLatLng().lng.toFixed(5);
+  adress.value = `${ addressLat } ${ addressLng }`;
+
+  formElement.addEventListener('reset', () => {
+    mainPinMarker.setLatLng(L.latLng(COORDINATES_CENTER_TOKYO.lat, COORDINATES_CENTER_TOKYO.lng));
+  });
 });
+
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
 resetButton.addEventListener('click', () => {

@@ -15,5 +15,6 @@ const turnOnForm = function () {
   });
 };
 
+export {formElement};
 export {turnOffForm};
 export {turnOnForm};
