@@ -102,7 +102,6 @@ function onSetTimeIn () {
 timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
 
-//PRIIIIEM!!!!!
 
 let startPrice;
 
@@ -131,7 +130,6 @@ typeOfHousing.addEventListener('change', () => {
   });
 });
 
-// slider!!!
 
 const sliderReset = function () {
   sliderPrice.noUiSlider.set(TYPE_COSTS[typeOfHousing.value]);
