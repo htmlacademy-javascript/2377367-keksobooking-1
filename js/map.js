@@ -1,13 +1,9 @@
-import {generateData} from './data.js';
-import {turnOffForm, turnOnForm, formElement} from './form.js';
-import {turnOffMapFilters, turnOnMapFilters} from './filter.js';
+import { turnOnForm, formElement} from './form.js';
+import { turnOnMapFilters} from './filter.js';
 import {getNewCardElement} from './similar.js';
+
 const resetButton = document.querySelector('.ad-form__reset');
 const adress = document.querySelector('#address');
-
-// НЕАКТИВНОЕ СОСТОЯНИЕ ФОРМЫ И ФИЛЬТРОВ ДО ЗАГРУЗКИ КАРТЫ
-document.addEventListener('load', turnOffForm);
-document.addEventListener('load', turnOffMapFilters);
 
 // Координаты центра Токио
 const COORDINATES_CENTER_TOKYO = {
@@ -30,6 +26,9 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
   },
 ).addTo(map);
+
+map.on('load', turnOnForm());
+map.on('load', turnOnMapFilters());
 
 // СОЗДАНИЕ ОСНОВНОГО МАРКЕРА
 const mainPinIcon = L.icon({
@@ -64,7 +63,7 @@ mainPinMarker.on('move', (evt) => {
 
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
-resetButton.addEventListener('click', () => {
+const handlerResetMainMarker = function () {
   mainPinMarker.setLatLng({
     lat: COORDINATES_CENTER_TOKYO.lat,
     lng: COORDINATES_CENTER_TOKYO.lng,
@@ -74,11 +73,11 @@ resetButton.addEventListener('click', () => {
     lat: COORDINATES_CENTER_TOKYO.lat,
     lng: COORDINATES_CENTER_TOKYO.lng,
   }, 11);
-});
+};
+
+resetButton.addEventListener('click', handlerResetMainMarker);
 
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ
-const dataList = generateData();
-
 const pinIcon = L.icon({
   iconUrl: './/img/pin.svg',
   iconSize: [40, 40],
@@ -104,6 +103,10 @@ const createMarker = function (popupCard) {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-dataList.forEach((popupCard) => {
-  createMarker(popupCard);
-});
+const createAllMarkers = function (arr) {
+  arr.forEach((popupCard) => {
+    createMarker(popupCard);
+  });
+};
+
+export {createAllMarkers, handlerResetMainMarker};

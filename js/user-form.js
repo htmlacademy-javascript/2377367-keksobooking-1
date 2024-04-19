@@ -1,4 +1,9 @@
+import {handlerResetMainMarker} from './map.js';
+import {showSuccesMessage, showErrorMessage} from './message.js';
+import {sendData} from './api.js';
+
 const adForm = document.querySelector('.ad-form');
+const submitButton = adForm.querySelector('.ad-form__submit');
 
 const pristine = new Pristine(
   adForm, {
@@ -48,6 +53,7 @@ function onRoomsGuestsChange () {
   pristine.validate(guests);
 }
 
+
 const sliderPrice = document.querySelector('.ad-form__slider');
 const typeOfHousing = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
@@ -96,10 +102,7 @@ function onSetTimeIn () {
 timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
 
-adForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+//PRIIIIEM!!!!!
 
 let startPrice;
 
@@ -126,4 +129,50 @@ typeOfHousing.addEventListener('change', () => {
   sliderPrice.noUiSlider.updateOptions({
     start: startPrice,
   });
+});
+
+// slider!!!
+
+const sliderReset = function () {
+  sliderPrice.noUiSlider.set(TYPE_COSTS[typeOfHousing.value]);
+};
+
+const resetForm = function () {
+  adForm.reset();
+  sliderReset();
+};
+
+const formUpdateOnSuccess = function () {
+  resetForm();
+  handlerResetMainMarker();
+  showSuccesMessage();
+};
+
+const blockSubmitButton = function () {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = function () {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+adForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(
+      () => {
+        formUpdateOnSuccess();
+        unblockSubmitButton();
+      },
+      () => {
+        showErrorMessage();
+        unblockSubmitButton();
+      },
+      new FormData(evt.target),
+    );
+  }
 });
