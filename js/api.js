@@ -9,7 +9,7 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
-const sendData = (onSuccess, onFail, body) => {
+const SEND_DATA = (onSuccess, onFail, body) => {
   fetch(
     'https://28.javascript.htmlacademy.pro/keksobooking/data ',
     {
@@ -29,4 +29,4 @@ const sendData = (onSuccess, onFail, body) => {
     });
 };
 
-export {getData, sendData};
+export {getData, SEND_DATA};

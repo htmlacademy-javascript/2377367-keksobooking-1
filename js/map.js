@@ -12,9 +12,11 @@ const COORDINATES_CENTER_TOKYO = {
 };
 
 //  СОЗДАНИЕ КАРТЫ И АКТИВАЦИЯ ФОРМЫ И ФИЛЬТРОВ
-const map = L.map('map-canvas')
-  .on('load', turnOnForm)
-  .on('load', turnOnMapFilters)
+const map = L.map('map-canvas');
+map.on('load', () => {
+  turnOnForm();
+  turnOnMapFilters();
+})
   .setView({
     lat: COORDINATES_CENTER_TOKYO.lat,
     lng: COORDINATES_CENTER_TOKYO.lng,
@@ -27,8 +29,6 @@ L.tileLayer(
   },
 ).addTo(map);
 
-map.on('load', turnOnForm());
-map.on('load', turnOnMapFilters());
 
 // СОЗДАНИЕ ОСНОВНОГО МАРКЕРА
 const mainPinIcon = L.icon({
@@ -63,7 +63,7 @@ mainPinMarker.on('move', (evt) => {
 
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
-const handlerResetMainMarker = function () {
+const resetMainMarker = function () {
   mainPinMarker.setLatLng({
     lat: COORDINATES_CENTER_TOKYO.lat,
     lng: COORDINATES_CENTER_TOKYO.lng,
@@ -75,7 +75,7 @@ const handlerResetMainMarker = function () {
   }, 11);
 };
 
-resetButton.addEventListener('click', handlerResetMainMarker);
+resetButton.addEventListener('click', resetMainMarker);
 
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ
 const pinIcon = L.icon({
@@ -103,10 +103,10 @@ const createMarker = function (popupCard) {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-const createAllMarkers = function (arr) {
-  arr.forEach((popupCard) => {
-    createMarker(popupCard);
+const createAllMarkers = function (ads) {
+  ads.forEach((ad) => {
+    createMarker(ad);
   });
 };
 
-export {createAllMarkers, handlerResetMainMarker};
+export {createAllMarkers, resetMainMarker};

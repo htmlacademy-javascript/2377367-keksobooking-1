@@ -1,6 +1,6 @@
-import {handlerResetMainMarker} from './map.js';
+import {resetMainMarker} from './map.js';
 import {showSuccesMessage, showErrorMessage} from './message.js';
-import {sendData} from './api.js';
+import {SEND_DATA} from './api.js';
 
 const adForm = document.querySelector('.ad-form');
 const submitButton = adForm.querySelector('.ad-form__submit');
@@ -140,11 +140,11 @@ const resetForm = function () {
   sliderReset();
 };
 
-const formUpdateOnSuccess = function () {
+function formUpdateOnSuccess () {
   resetForm();
-  handlerResetMainMarker();
+  resetMainMarker();
   showSuccesMessage();
-};
+}
 
 const blockSubmitButton = function () {
   submitButton.disabled = true;
@@ -161,7 +161,7 @@ adForm.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
   if (isValid) {
     blockSubmitButton();
-    sendData(
+    SEND_DATA(
       () => {
         formUpdateOnSuccess();
         unblockSubmitButton();
