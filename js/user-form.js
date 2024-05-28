@@ -57,8 +57,6 @@ function onRoomsGuestsChange () {
 }
 
 
-//ТУТ
-
 const sliderPrice = document.querySelector('.ad-form__slider');
 const typeOfHousing = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
@@ -69,9 +67,6 @@ const TYPE_COSTS = {
   house: '5000',
   palace: '10000'
 };
-
-
-//конец
 
 function setMinPrice () {
   price.setAttribute('placeholder', TYPE_COSTS[typeOfHousing.value]);
@@ -110,9 +105,6 @@ function onSetTimeIn () {
 timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
 
-
-//ТУТ
-
 let startPrice;
 
 noUiSlider.create(sliderPrice, {
@@ -146,8 +138,6 @@ const sliderReset = function () {
 };
 
 
-//конец
-
 const onResetButton = function () {
   resetAvatar();
   resetFoto();
@@ -165,8 +155,6 @@ const resetForm = function () {
   removeAllMarkers();
 };
 
-
-//
 
 const formUpdateOnSuccess = function () {
   resetForm();
