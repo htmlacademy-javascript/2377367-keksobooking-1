@@ -1,9 +1,12 @@
-import {resetMainMarker} from './map.js';
 import {showSuccesMessage, showErrorMessage} from './message.js';
-import {SEND_DATA} from './api.js';
+import {sendData} from './api.js';
+import {resetAvatar} from './avatar.js';
+import {resetFoto} from './foto.js';
+import {removeAllMarkers} from './map.js';
 
 const adForm = document.querySelector('.ad-form');
 const submitButton = adForm.querySelector('.ad-form__submit');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const pristine = new Pristine(
   adForm, {
@@ -54,6 +57,8 @@ function onRoomsGuestsChange () {
 }
 
 
+//ТУТ
+
 const sliderPrice = document.querySelector('.ad-form__slider');
 const typeOfHousing = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
@@ -64,6 +69,9 @@ const TYPE_COSTS = {
   house: '5000',
   palace: '10000'
 };
+
+
+//конец
 
 function setMinPrice () {
   price.setAttribute('placeholder', TYPE_COSTS[typeOfHousing.value]);
@@ -103,6 +111,8 @@ timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
 
 
+//ТУТ
+
 let startPrice;
 
 noUiSlider.create(sliderPrice, {
@@ -135,16 +145,33 @@ const sliderReset = function () {
   sliderPrice.noUiSlider.set(TYPE_COSTS[typeOfHousing.value]);
 };
 
+
+//конец
+
+const onResetButton = function () {
+  resetAvatar();
+  resetFoto();
+  sliderReset();
+  removeAllMarkers();
+};
+
+resetButton.addEventListener('click', onResetButton);
+
 const resetForm = function () {
   adForm.reset();
   sliderReset();
+  resetAvatar();
+  resetFoto();
+  removeAllMarkers();
 };
 
-function formUpdateOnSuccess () {
+
+//
+
+const formUpdateOnSuccess = function () {
   resetForm();
-  resetMainMarker();
   showSuccesMessage();
-}
+};
 
 const blockSubmitButton = function () {
   submitButton.disabled = true;
@@ -161,7 +188,7 @@ adForm.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
   if (isValid) {
     blockSubmitButton();
-    SEND_DATA(
+    sendData(
       () => {
         formUpdateOnSuccess();
         unblockSubmitButton();
@@ -174,3 +201,5 @@ adForm.addEventListener('submit', (evt) => {
     );
   }
 });
+
+

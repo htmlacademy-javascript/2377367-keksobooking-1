@@ -1,8 +1,7 @@
-import { turnOnForm, formElement} from './form.js';
+import { turnOnForm} from './form.js';
 import { turnOnMapFilters} from './filter.js';
 import {getNewCardElement} from './similar.js';
 
-const resetButton = document.querySelector('.ad-form__reset');
 const adress = document.querySelector('#address');
 
 // Координаты центра Токио
@@ -50,15 +49,13 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
-// ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС - РЕШЕНИЕ НЕВЕРНОЕ
-mainPinMarker.on('move', (evt) => {
-  const addressLat = evt.target.getLatLng().lat.toFixed(5);
-  const addressLng = evt.target.getLatLng().lng.toFixed(5);
-  adress.value = `${ addressLat } ${ addressLng }`;
-
-  formElement.addEventListener('reset', () => {
-    mainPinMarker.setLatLng(L.latLng(COORDINATES_CENTER_TOKYO.lat, COORDINATES_CENTER_TOKYO.lng));
-  });
+// ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС
+mainPinMarker.on('moveend', (evt) => {
+  const latLang = evt.target.getLatLng().toString();
+  const arr = latLang.split('');
+  const Lat = arr.slice(7, 15).join('');
+  const Lan = arr.slice(18, 27).join('');
+  adress.value = `Lat: ${Lat}, Lan: ${Lan}`;
 });
 
 
@@ -74,8 +71,6 @@ const resetMainMarker = function () {
     lng: COORDINATES_CENTER_TOKYO.lng,
   }, 11);
 };
-
-resetButton.addEventListener('click', resetMainMarker);
 
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ
 const pinIcon = L.icon({
@@ -109,4 +104,9 @@ const createAllMarkers = function (ads) {
   });
 };
 
-export {createAllMarkers, resetMainMarker};
+// УДАЛЕНИЕ МАРКЕРОВ
+const removeAllMarkers = function () {
+  markerGroup.clearLayers();
+};
+
+export {createAllMarkers, resetMainMarker, removeAllMarkers};
