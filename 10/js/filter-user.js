@@ -60,7 +60,6 @@ const getFilteredOffersByType = function (offers) {
     if (checkbox.checked) {
       selectedFeatures.push(checkbox.value);
     }
-    return selectedFeatures;
   });
 
   for (const offer of offers) {
@@ -81,10 +80,10 @@ const getFilteredOffersByType = function (offers) {
   return filteredOffers;
 };
 
-const setOnFiltersChange = function (cb, arr) {
+const setOnFiltersChange = function (cb, offers) {
   filtersForm.addEventListener('change', debounce(() => {
     removeAllMarkers();
-    cb(getFilteredOffersByType(arr));
+    cb(getFilteredOffersByType(offers));
   }
   , RERENDER_DELAY)
   );
