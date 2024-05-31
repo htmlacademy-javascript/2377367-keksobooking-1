@@ -1,7 +1,7 @@
 import {showSuccesMessage, showErrorMessage} from './message.js';
 import {sendData} from './api.js';
 import {resetAvatar} from './avatar.js';
-import {resetFoto} from './foto.js';
+import {resetPhoto} from './foto.js';
 import {removeAllMarkers} from './map.js';
 
 const adForm = document.querySelector('.ad-form');
@@ -140,7 +140,7 @@ const sliderReset = function () {
 
 const onResetButton = function () {
   resetAvatar();
-  resetFoto();
+  resetPhoto();
   sliderReset();
   removeAllMarkers();
 };
@@ -151,7 +151,7 @@ const resetForm = function () {
   adForm.reset();
   sliderReset();
   resetAvatar();
-  resetFoto();
+  resetPhoto();
   removeAllMarkers();
 };
 
