@@ -109,7 +109,7 @@ function getNewAdData (index) {
   const randLat = getRandomPositiveFloat(LATITUDE.min, LATITUDE.max, DIGITS);
   const randLng = getRandomPositiveFloat(LONGITUDE.min, LONGITUDE.max, DIGITS);
   return {
-    autor: {
+    author: {
       avatar: AUTOR_LIST[index],
     },
     offer: {
