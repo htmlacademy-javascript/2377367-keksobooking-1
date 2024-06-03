@@ -5,7 +5,7 @@ const cardTemplate = document.querySelector('#card').content.querySelector('.pop
 
 const getNewCardElement = function (card) {
   const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector('.popup__avatar').src = card.autor.avatar;
+  cardElement.querySelector('.popup__avatar').src = card.author.avatar;
   cardElement.querySelector('.popup__title').textContent = card.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = card.offer.addres;
   cardElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
