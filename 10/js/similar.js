@@ -13,29 +13,45 @@ const getNewCardElement = function (card) {
   cardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
 
-  cardElement.querySelector('.popup__features').innerHTML = '';
-  card.offer.features.forEach((offerFeature) => {
-    const featureItem = document.createElement('li');
-    featureItem.classList.add('popup__feature');
-    featureItem.classList.add(`popup__feature--${offerFeature}`);
-    cardElement.querySelector('.popup__features').appendChild(featureItem);
-  });
 
-  cardElement.querySelector('.popup__description').textContent = card.offer.description;
+  const featuresItems = cardElement.querySelectorAll('.popup__feature');
+  const featuresList = cardElement.querySelector('.popup__features');
 
-  cardElement.querySelector('.popup__photos').innerHTML = '';
-  card.offer.photos.forEach((offerPhoto) => {
-    const photo = document.createElement('img');
-    photo.src = offerPhoto;
-    photo.classList.add('popup__photo');
-    photo.setAttribute('width', '45');
-    photo.setAttribute('height', '40');
-    photo.setAttribute('alt', 'Фотография жилья');
-    cardElement.querySelector('.popup__photos').appendChild(photo);
-  });
+  if (card.offer.features) {
+    const modifiers = card.offer.features.map((feature) => `popup__feature--${ feature }`);
+    featuresItems.forEach((item) => {
+      const modifier = item.classList[1];
+      if (! modifiers.includes(modifier)) {
+        item.remove();
+      }
+    });
+  } else {
+    featuresList.style.display = 'none';
+  }
+
+  card.offer.description ? cardElement.querySelector('.popup__description').textContent = card.offer.description:
+   cardElement.querySelector('.popup__description').textContent = 'Описание отсутствует';
+
+
+  const photoTemplate = cardElement.querySelector('.popup__photo');
+  const photosList = cardElement.querySelector('.popup__photos');
+  const fragment = document.createDocumentFragment();
+
+  if (card.offer.photos) {
+    card.offer.photos.map((src) => {
+      const photo = photoTemplate.cloneNode(true);
+      photo.src = src;
+      fragment.appendChild(photo);
+    });
+    photosList.children[0].remove();
+    photosList.appendChild(fragment);
+  } else {
+    photosList.style.display = 'none';
+  }
 
   return cardElement;
 };
+
 
 export {getNewCardElement};
 
