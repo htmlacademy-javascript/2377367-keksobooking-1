@@ -2,7 +2,6 @@ import { turnOnForm, formElement} from './form.js';
 import { turnOnMapFilters} from './filter.js';
 import {getNewCardElement} from './similar.js';
 
-const resetButton = document.querySelector('.ad-form__reset');
 const adress = document.querySelector('#address');
 
 // Координаты центра Токио
@@ -75,8 +74,6 @@ const resetMainMarker = function () {
   }, 11);
 };
 
-resetButton.addEventListener('click', resetMainMarker);
-
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ
 const pinIcon = L.icon({
   iconUrl: './/img/pin.svg',
@@ -109,4 +106,9 @@ const createAllMarkers = function (ads) {
   });
 };
 
-export {createAllMarkers, resetMainMarker};
+// УДАЛЕНИЕ МАРКЕРОВ
+const removeAllMarkers = function () {
+  markerGroup.clearLayers();
+};
+
+export {createAllMarkers, resetMainMarker, removeAllMarkers};

@@ -1,9 +1,12 @@
-import {resetMainMarker} from './map.js';
 import {showSuccesMessage, showErrorMessage} from './message.js';
-import {SEND_DATA} from './api.js';
+import {sendData} from './api.js';
+import {resetAvatar} from './avatar.js';
+import {resetPhoto} from './foto.js';
+import {removeAllMarkers} from './map.js';
 
 const adForm = document.querySelector('.ad-form');
 const submitButton = adForm.querySelector('.ad-form__submit');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const pristine = new Pristine(
   adForm, {
@@ -102,7 +105,6 @@ function onSetTimeIn () {
 timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
 
-
 let startPrice;
 
 noUiSlider.create(sliderPrice, {
@@ -135,16 +137,29 @@ const sliderReset = function () {
   sliderPrice.noUiSlider.set(TYPE_COSTS[typeOfHousing.value]);
 };
 
+
+const onResetButton = function () {
+  resetAvatar();
+  resetPhoto();
+  sliderReset();
+  removeAllMarkers();
+};
+
+resetButton.addEventListener('click', onResetButton);
+
 const resetForm = function () {
   adForm.reset();
   sliderReset();
+  resetAvatar();
+  resetPhoto();
+  removeAllMarkers();
 };
 
-function formUpdateOnSuccess () {
+
+const formUpdateOnSuccess = function () {
   resetForm();
-  resetMainMarker();
   showSuccesMessage();
-}
+};
 
 const blockSubmitButton = function () {
   submitButton.disabled = true;
@@ -161,7 +176,7 @@ adForm.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
   if (isValid) {
     blockSubmitButton();
-    SEND_DATA(
+    sendData(
       () => {
         formUpdateOnSuccess();
         unblockSubmitButton();
@@ -174,3 +189,5 @@ adForm.addEventListener('submit', (evt) => {
     );
   }
 });
+
+
