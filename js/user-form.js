@@ -133,12 +133,12 @@ typeOfHousing.addEventListener('change', () => {
 });
 
 
-const sliderReset = function () {
+const sliderReset = () => {
   sliderPrice.noUiSlider.set(TYPE_COSTS[typeOfHousing.value]);
 };
 
 
-const onResetButton = function () {
+const onResetButton = () => {
   resetAvatar();
   resetPhoto();
   sliderReset();
@@ -147,7 +147,7 @@ const onResetButton = function () {
 
 resetButton.addEventListener('click', onResetButton);
 
-const resetForm = function () {
+const resetForm = () => {
   adForm.reset();
   sliderReset();
   resetAvatar();
@@ -156,17 +156,17 @@ const resetForm = function () {
 };
 
 
-const formUpdateOnSuccess = function () {
+const formUpdateOnSuccess = () => {
   resetForm();
   showSuccesMessage();
 };
 
-const blockSubmitButton = function () {
+const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Публикую...';
 };
 
-const unblockSubmitButton = function () {
+const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = 'Опубликовать';
 };

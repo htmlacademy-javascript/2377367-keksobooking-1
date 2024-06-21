@@ -1,4 +1,4 @@
-import { turnOnForm, formElement} from './form.js';
+import { turnOnForm} from './form.js';
 import { turnOnMapFilters} from './filter.js';
 import {getNewCardElement} from './similar.js';
 
@@ -49,20 +49,18 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
-// ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС - РЕШЕНИЕ НЕВЕРНОЕ
-mainPinMarker.on('move', (evt) => {
-  const addressLat = evt.target.getLatLng().lat.toFixed(5);
-  const addressLng = evt.target.getLatLng().lng.toFixed(5);
-  adress.value = `${ addressLat } ${ addressLng }`;
-
-  formElement.addEventListener('reset', () => {
-    mainPinMarker.setLatLng(L.latLng(COORDINATES_CENTER_TOKYO.lat, COORDINATES_CENTER_TOKYO.lng));
-  });
+// ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС
+mainPinMarker.on('moveend', (evt) => {
+  const latLang = evt.target.getLatLng().toString();
+  const arr = latLang.split('');
+  const Lat = arr.slice(7, 15).join('');
+  const Lan = arr.slice(18, 27).join('');
+  adress.value = `${Lat}, ${Lan}`;
 });
 
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
-const resetMainMarker = function () {
+const resetMainMarker = () => {
   mainPinMarker.setLatLng({
     lat: COORDINATES_CENTER_TOKYO.lat,
     lng: COORDINATES_CENTER_TOKYO.lng,
@@ -83,7 +81,7 @@ const pinIcon = L.icon({
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = function (popupCard) {
+const createMarker = (popupCard) => {
   const {location} = popupCard;
   const marker = L.marker(
     {
@@ -100,14 +98,14 @@ const createMarker = function (popupCard) {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-const createAllMarkers = function (ads) {
+const createAllMarkers = (ads) => {
   ads.forEach((ad) => {
     createMarker(ad);
   });
 };
 
 // УДАЛЕНИЕ МАРКЕРОВ
-const removeAllMarkers = function () {
+const removeAllMarkers = () => {
   markerGroup.clearLayers();
 };
 

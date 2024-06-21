@@ -26,7 +26,7 @@ function getRand () {
   return Math.random() - 0.5;
 }
 
-const getType = function (type) {
+const getType = (type) => {
   switch (type) {
     case 'flat':
       return 'Квартира';
