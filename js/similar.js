@@ -3,7 +3,7 @@ import {getType} from './util.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const getNewCardElement = function (card) {
+const getNewCardElement = (card) => {
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
   cardElement.querySelector('.popup__title').textContent = card.offer.title;

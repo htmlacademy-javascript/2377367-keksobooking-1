@@ -62,7 +62,7 @@ mainPinMarker.on('move', (evt) => {
 
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
-const resetMainMarker = function () {
+const resetMainMarker = () => {
   mainPinMarker.setLatLng({
     lat: COORDINATES_CENTER_TOKYO.lat,
     lng: COORDINATES_CENTER_TOKYO.lng,
@@ -83,7 +83,7 @@ const pinIcon = L.icon({
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = function (popupCard) {
+const createMarker = (popupCard) => {
   const {location} = popupCard;
   const marker = L.marker(
     {
@@ -100,14 +100,14 @@ const createMarker = function (popupCard) {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-const createAllMarkers = function (ads) {
+const createAllMarkers = (ads) => {
   ads.forEach((ad) => {
     createMarker(ad);
   });
 };
 
 // УДАЛЕНИЕ МАРКЕРОВ
-const removeAllMarkers = function () {
+const removeAllMarkers = () => {
   markerGroup.clearLayers();
 };
 

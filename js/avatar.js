@@ -5,6 +5,9 @@ const preview = document.querySelector('.ad-form-header__preview img');
 
 fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];
+  if (file === undefined) {
+    return;
+  }
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
@@ -13,7 +16,7 @@ fileChooser.addEventListener('change', () => {
   }
 });
 
-const resetAvatar = function () {
+const resetAvatar = () => {
   preview.src = 'img/muffin-grey.svg';
 };
 
