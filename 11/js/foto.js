@@ -5,6 +5,9 @@ const previewPhoto = document.querySelector('.ad-form__photo');
 
 photoChooser.addEventListener('change', () => {
   const file = photoChooser.files[0];
+  if (file === undefined) {
+    return;
+  }
   const fileName = file.name.toLowerCase();
 
   const matches = PHOTO_TYPES.some((it) => fileName.endsWith(it));
