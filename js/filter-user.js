@@ -82,9 +82,8 @@ const getFilteredOffersByType = (offers) => {
 
 const setOnFiltersChange = ({ createAllMarkers, removeAllMarkers }, offers) =>{
   filtersForm.addEventListener('change', debounce(() => {
-    createAllMarkers();
     removeAllMarkers();
-    cb(getFilteredOffersByType(offers));
+    createAllMarkers(getFilteredOffersByType(offers));
   }
   , RERENDER_DELAY)
   );
