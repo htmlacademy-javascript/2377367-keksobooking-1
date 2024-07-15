@@ -1,6 +1,5 @@
-import {removeAllMarkers} from './map.js';
 import {debounce} from './debounce.js';
-import {createAllMarkers} from './map.js';
+
 
 const OFFER_COUNT = 10;
 const RERENDER_DELAY = 500;
