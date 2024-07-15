@@ -29,8 +29,7 @@ const getNewCardElement = (card) => {
     featuresList.style.display = 'none';
   }
 
-  card.offer.description ? cardElement.querySelector('.popup__description').textContent = card.offer.description:
-   cardElement.querySelector('.popup__description').textContent = 'Описание отсутствует';
+  cardElement.querySelector('.popup__description').textContent = card.offer.description || 'Описание отсутствует';
 
 
   const photoTemplate = cardElement.querySelector('.popup__photo');

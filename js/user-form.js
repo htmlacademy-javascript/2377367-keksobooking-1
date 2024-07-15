@@ -1,5 +1,5 @@
 import {showSuccesMessage, showErrorMessage} from './message.js';
-import {sendData} from './api.js';
+import {send} from './api.js';
 import {resetAvatar} from './avatar.js';
 import {resetPhoto} from './foto.js';
 import {removeAllMarkers} from './map.js';
@@ -112,7 +112,7 @@ noUiSlider.create(sliderPrice, {
     min: 0,
     max: 100000,
   },
-  start: 5000,
+  start: 1000,
   step: 1,
   connect: 'lower',
   format: {
@@ -176,7 +176,7 @@ adForm.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
   if (isValid) {
     blockSubmitButton();
-    sendData(
+    send(
       () => {
         formUpdateOnSuccess();
         unblockSubmitButton();

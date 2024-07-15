@@ -10,7 +10,7 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
-const sendData = (onSuccess, onFail, body) => {
+const send = (onSuccess, onFail, body) => {
   fetch(
     ENDPOINT_API,
     {
@@ -30,4 +30,4 @@ const sendData = (onSuccess, onFail, body) => {
     });
 };
 
-export {getData, sendData};
+export {getData, send};
