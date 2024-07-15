@@ -1,8 +1,8 @@
-import { turnOnForm, formElement} from './form.js';
-import { turnOnMapFilters} from './filter.js';
+import { turnOnForm, form} from './form.js';
 import {getNewCardElement} from './similar.js';
 
-const adress = document.querySelector('#address');
+const DEFAULT_MAP_ZOOM = 11;
+const address = document.querySelector('#address');
 
 // Координаты центра Токио
 const COORDINATES_CENTER_TOKYO = {
@@ -14,12 +14,11 @@ const COORDINATES_CENTER_TOKYO = {
 const map = L.map('map-canvas');
 map.on('load', () => {
   turnOnForm();
-  turnOnMapFilters();
 })
   .setView({
     lat: COORDINATES_CENTER_TOKYO.lat,
     lng: COORDINATES_CENTER_TOKYO.lng,
-  }, 11);
+  }, DEFAULT_MAP_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -27,7 +26,6 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
   },
 ).addTo(map);
-
 
 // СОЗДАНИЕ ОСНОВНОГО МАРКЕРА
 const mainPinIcon = L.icon({
@@ -49,17 +47,15 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
-// ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС - РЕШЕНИЕ НЕВЕРНОЕ
+// ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС - РЕШЕНИЕ ВЕРНОЕ
 mainPinMarker.on('move', (evt) => {
   const addressLat = evt.target.getLatLng().lat.toFixed(5);
   const addressLng = evt.target.getLatLng().lng.toFixed(5);
-  adress.value = `${ addressLat } ${ addressLng }`;
-
-  formElement.addEventListener('reset', () => {
-    mainPinMarker.setLatLng(L.latLng(COORDINATES_CENTER_TOKYO.lat, COORDINATES_CENTER_TOKYO.lng));
-  });
+  address.value = `${ addressLat } ${ addressLng }`;
 });
-
+form.addEventListener('reset', () => {
+  mainPinMarker.setLatLng(L.latLng(COORDINATES_CENTER_TOKYO.lat, COORDINATES_CENTER_TOKYO.lng));
+});
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
 const resetMainMarker = () => {
@@ -71,7 +67,7 @@ const resetMainMarker = () => {
   map.setView({
     lat: COORDINATES_CENTER_TOKYO.lat,
     lng: COORDINATES_CENTER_TOKYO.lng,
-  }, 11);
+  }, DEFAULT_MAP_ZOOM);
 };
 
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ

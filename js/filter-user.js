@@ -1,12 +1,11 @@
-import {removeAllMarkers} from './map.js';
 import {debounce} from './debounce.js';
 
 const OFFER_COUNT = 10;
 const RERENDER_DELAY = 500;
 
 const Price = {
-  middle: 10000,
-  high: 50000,
+  MIDDLE: 10000,
+  HIGH: 50000,
 };
 
 const filtersForm = document.querySelector('.map__filters');
@@ -19,17 +18,16 @@ const housingFeatures = filtersForm.querySelectorAll('.map__checkbox');
 const filterType = (offer, type) =>
   type === 'any' || offer.offer.type === type;
 
-
 const filterPrice = (offer, price) => {
   switch (price) {
     case 'any':
       return true;
     case 'low':
-      return offer.offer.price < Price.middle;
-    case 'middle':
-      return offer.offer.price >= Price.middle && offer.offer.price < Price.high;
-    case 'high':
-      return offer.offer.price >= Price.high;
+      return offer.offer.price < Price.MIDDLE;
+    case 'MIDDLE':
+      return offer.offer.price >= Price.MIDDLE && offer.offer.price < Price.HIGH;
+    case 'HIGH':
+      return offer.offer.price >= Price.HIGH;
   }
 };
 
@@ -76,17 +74,17 @@ const getFilteredOffersByType = (offers) => {
       filteredOffers.push(offer);
     }
   }
-
   return filteredOffers;
 };
 
-const setOnFiltersChange = (cb, offers) =>{
+const setOnFiltersChange = ({ createAllMarkers, removeAllMarkers }, offers) =>{
   filtersForm.addEventListener('change', debounce(() => {
     removeAllMarkers();
-    cb(getFilteredOffersByType(offers));
+    createAllMarkers(getFilteredOffersByType(offers));
   }
   , RERENDER_DELAY)
   );
 };
 
 export {setOnFiltersChange};
+
