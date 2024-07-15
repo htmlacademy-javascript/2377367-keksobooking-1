@@ -27,7 +27,6 @@ L.tileLayer(
   },
 ).addTo(map);
 
-
 // СОЗДАНИЕ ОСНОВНОГО МАРКЕРА
 const mainPinIcon = L.icon({
   iconUrl: './/img/main-pin.svg',
@@ -57,7 +56,6 @@ mainPinMarker.on('move', (evt) => {
 form.addEventListener('reset', () => {
   mainPinMarker.setLatLng(L.latLng(COORDINATES_CENTER_TOKYO.lat, COORDINATES_CENTER_TOKYO.lng));
 });
-
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
 const resetMainMarker = () => {

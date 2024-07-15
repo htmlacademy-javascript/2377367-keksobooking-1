@@ -1,6 +1,5 @@
 import {debounce} from './debounce.js';
 
-
 const OFFER_COUNT = 10;
 const RERENDER_DELAY = 500;
 
@@ -18,7 +17,6 @@ const housingFeatures = filtersForm.querySelectorAll('.map__checkbox');
 
 const filterType = (offer, type) =>
   type === 'any' || offer.offer.type === type;
-
 
 const filterPrice = (offer, price) => {
   switch (price) {
@@ -76,7 +74,6 @@ const getFilteredOffersByType = (offers) => {
       filteredOffers.push(offer);
     }
   }
-
   return filteredOffers;
 };
 

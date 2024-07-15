@@ -8,7 +8,6 @@ import {setOnFiltersChange} from './filter-user.js';
 import {turnOnMapFilters, turnOffMapFilters} from './filter.js';
 import {removeAllMarkers} from './map.js';
 
-
 const ADS_LIMIT = 10;
 
 getData(

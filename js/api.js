@@ -12,7 +12,7 @@ const getData = (onSuccess, onFail) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    ENDPOINT_API + '/data',
+    `${ENDPOINT_API}/data`,
     {
       method: 'POST',
       body,
