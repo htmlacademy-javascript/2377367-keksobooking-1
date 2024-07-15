@@ -1,5 +1,5 @@
 import {showSuccesMessage, showErrorMessage} from './message.js';
-import {send} from './api.js';
+import {sendData} from './api.js';
 import {resetAvatar} from './avatar.js';
 import {resetPhoto} from './foto.js';
 import {removeAllMarkers} from './map.js';
@@ -176,7 +176,7 @@ adForm.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
   if (isValid) {
     blockSubmitButton();
-    send(
+    sendData(
       () => {
         formUpdateOnSuccess();
         unblockSubmitButton();

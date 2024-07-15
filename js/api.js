@@ -1,4 +1,4 @@
-const ENDPOINT_API = 'https://28.javascript.htmlacademy.pro/keksobooking/data';
+const ENDPOINT_API = 'https://28.javascript.htmlacademy.pro/keksobooking';
 const getData = (onSuccess, onFail) => {
   fetch(ENDPOINT_API)
     .then((response) => response.json())
@@ -10,9 +10,9 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
-const send = (onSuccess, onFail, body) => {
+const sendData = (onSuccess, onFail, body) => {
   fetch(
-    ENDPOINT_API,
+    ENDPOINT_API + '/data',
     {
       method: 'POST',
       body,
@@ -30,4 +30,4 @@ const send = (onSuccess, onFail, body) => {
     });
 };
 
-export {getData, send};
+export {getData, sendData};
