@@ -12,5 +12,5 @@ const getType = (type) => {
       return 'Отель';
   }
 };
-//
+
 export {getType};
