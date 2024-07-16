@@ -19,3 +19,5 @@ getData(
   (errorMessage) => showAlert(errorMessage)
 );
 turnOffMapFilters();
+
+
