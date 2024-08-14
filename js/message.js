@@ -5,8 +5,6 @@ const bodyElement = document.querySelector('body');
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
-
-
 const onOverlayClick = (evt) => {
   evt.target === 'error__message' || evt.key === 'error__message';
   hideMessage();
@@ -44,7 +42,6 @@ function hideMessage () {
   document.removeEventListener('click', onOverlayClick);
   bodyElement.style.overflow = 'auto';
 }
-
 
 const showAlert = (message) =>{
   const alertContainer = document.createElement('div');

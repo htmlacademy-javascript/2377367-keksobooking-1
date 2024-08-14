@@ -2,7 +2,6 @@ import {showSuccesMessage, showErrorMessage} from './message.js';
 import {sendData} from './api.js';
 import {resetAvatar} from './avatar.js';
 import {resetPhoto} from './photo.js';
-import {removeAllMarkers} from './map.js';
 import {filtersForm} from './filter-user.js';
 
 const adForm = document.querySelector('.ad-form');
