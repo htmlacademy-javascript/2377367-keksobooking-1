@@ -1,8 +1,9 @@
 import {showSuccesMessage, showErrorMessage} from './message.js';
 import {sendData} from './api.js';
 import {resetAvatar} from './avatar.js';
-import {resetPhoto} from './foto.js';
+import {resetPhoto} from './photo.js';
 import {removeAllMarkers} from './map.js';
+import {filtersForm} from './filter-user.js';
 
 const adForm = document.querySelector('.ad-form');
 const submitButton = adForm.querySelector('.ad-form__submit');
@@ -75,7 +76,7 @@ function setMinPrice () {
 typeOfHousing.addEventListener('change', setMinPrice);
 
 function validatePrice () {
-  return Number(price.value) > Number(TYPE_COSTS[typeOfHousing.value]);
+  return Number(price.value) >= Number(TYPE_COSTS[typeOfHousing.value]);
 }
 
 function getPriceErrorMessage () {
@@ -139,7 +140,6 @@ const onResetButton = () => {
   resetAvatar();
   resetPhoto();
   sliderReset();
-  removeAllMarkers();
 };
 
 resetButton.addEventListener('click', onResetButton);
@@ -149,7 +149,6 @@ const resetForm = () => {
   sliderReset();
   resetAvatar();
   resetPhoto();
-  removeAllMarkers();
 };
 
 const formUpdateOnSuccess = () => {
@@ -186,4 +185,9 @@ adForm.addEventListener('submit', (evt) => {
   }
 });
 
-
+submitButton.addEventListener('click', () => {
+	filtersForm.reset();
+});
+resetButton.addEventListener('click', () =>  {
+	filtersForm.reset();
+});
