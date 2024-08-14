@@ -86,5 +86,5 @@ const setOnFiltersChange = ({ createAllMarkers, removeAllMarkers }, offers) =>{
   );
 };
 
-export {setOnFiltersChange};
+export {setOnFiltersChange, filtersForm};
 
