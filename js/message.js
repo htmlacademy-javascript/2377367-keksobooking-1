@@ -34,7 +34,7 @@ const showErrorMessage = () => {
   bodyElement.style.overflow = 'hidden';
 };
 
-const hideMessage = () => {
+function hideMessage () {
   const messageElement =
   document.querySelector('.success') || document.querySelector('.error');
   messageElement.remove();
