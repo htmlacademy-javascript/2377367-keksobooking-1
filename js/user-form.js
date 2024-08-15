@@ -33,17 +33,11 @@ const GUESTS_CAPACITY = {
   3 : ['3']
 };
 
-function validateGuests () {
-  return ROOMS_CAPACITY[rooms.value].includes(guests.value);
-}
+const validateGuests = () => ROOMS_CAPACITY[rooms.value].includes(guests.value);
 
-function validateRooms () {
-  return GUESTS_CAPACITY[guests.value].includes(rooms.value);
-}
+const validateRooms = () => GUESTS_CAPACITY[guests.value].includes(rooms.value);
 
-function getGuestsErrorMessage () {
-  return `Количество комнат (${rooms.value}) не позволяет разместить такое количество гостей (${guests.value})`;
-}
+const getGuestsErrorMessage = () => `Количество комнат (${rooms.value}) не позволяет разместить такое количество гостей (${guests.value})`;
 
 pristine.addValidator(guests, validateGuests, getGuestsErrorMessage);
 pristine.addValidator(rooms, validateRooms, getGuestsErrorMessage);
@@ -67,20 +61,18 @@ const TYPE_COSTS = {
   palace: '10000'
 };
 
-function setMinPrice () {
+const setMinPrice = () => {
   price.setAttribute('placeholder', TYPE_COSTS[typeOfHousing.value]);
   price.setAttribute('min', TYPE_COSTS[typeOfHousing.value]);
-}
+};
 
 typeOfHousing.addEventListener('change', setMinPrice);
 
-function validatePrice () {
-  return Number(price.value) >= Number(TYPE_COSTS[typeOfHousing.value]);
-}
+const validatePrice = () => Number(price.value) >= Number(TYPE_COSTS[typeOfHousing.value]);
 
-function getPriceErrorMessage () {
-  return `Цена выбранного типа жилья не менее ${TYPE_COSTS[typeOfHousing.value]} рублей за ночь`;
-}
+
+const getPriceErrorMessage = () => `Цена выбранного типа жилья не менее ${TYPE_COSTS[typeOfHousing.value]} рублей за ночь`;
+
 
 pristine.addValidator(price, validatePrice, getPriceErrorMessage);
 
@@ -93,13 +85,13 @@ function onTypeOfHousingChange () {
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
 
-function onSetTimeOut () {
+const onSetTimeOut = () => {
   timeOut.value = timeIn.value;
-}
+};
 
-function onSetTimeIn () {
+const onSetTimeIn = () => {
   timeIn.value = timeOut.value;
-}
+};
 
 timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
@@ -139,6 +131,7 @@ const onResetButton = () => {
   resetAvatar();
   resetPhoto();
   sliderReset();
+  filtersForm.reset();
 };
 
 resetButton.addEventListener('click', onResetButton);
@@ -158,11 +151,13 @@ const formUpdateOnSuccess = () => {
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Публикую...';
+  filtersForm.reset();
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = 'Опубликовать';
+  filtersForm.reset();
 };
 
 adForm.addEventListener('submit', (evt) => {
@@ -182,11 +177,4 @@ adForm.addEventListener('submit', (evt) => {
       new FormData(evt.target),
     );
   }
-});
-
-submitButton.addEventListener('click', () => {
-	filtersForm.reset();
-});
-resetButton.addEventListener('click', () =>  {
-	filtersForm.reset();
 });

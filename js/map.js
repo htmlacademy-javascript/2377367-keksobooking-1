@@ -96,8 +96,8 @@ const createMarker = (popupCard) => {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-const createAllMarkers = (ADVERTS) => {
-  ADVERTS.forEach((advert) => {
+const createAllMarkers = (adverts) => {
+  adverts.forEach((advert) => {
     createMarker(advert);
   });
 };

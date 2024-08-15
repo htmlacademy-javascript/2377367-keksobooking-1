@@ -6,8 +6,9 @@ const bodyElement = document.querySelector('body');
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 const onOverlayClick = (evt) => {
-  evt.target === 'error__message' || evt.key === 'error__message';
-  hideMessage();
+  if (evt.target.classList.contains('success') || evt.target.classList.contains('error') || evt.target.classList.contains('error__button')) {
+    hideMessage();
+  }
 };
 
 const onMessageEscKeydown = (evt) => {
@@ -28,20 +29,19 @@ const showSuccesMessage = () => {
 const showErrorMessage = () => {
   const errorMessageElement = errorMessageTemplate.cloneNode(true);
   document.addEventListener('keydown', onMessageEscKeydown);
-
   document.addEventListener('click', onOverlayClick);
   bodyElement.append(errorMessageElement);
   bodyElement.style.overflow = 'hidden';
 };
 
-function hideMessage () {
+const hideMessage = () => {
   const messageElement =
-    document.querySelector('.success') || document.querySelector('.error');
+  document.querySelector('.success') || document.querySelector('.error');
   messageElement.remove();
   document.removeEventListener('keydown', onMessageEscKeydown);
   document.removeEventListener('click', onOverlayClick);
   bodyElement.style.overflow = 'auto';
-}
+};
 
 const showAlert = (message) =>{
   const alertContainer = document.createElement('div');
