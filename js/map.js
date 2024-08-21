@@ -107,4 +107,8 @@ const removeAllMarkers = () => {
   markerGroup.clearLayers();
 };
 
-export {createAllMarkers, resetMainMarker, removeAllMarkers};
+const closePopup = () => {
+  map.closePopup();
+};
+
+export {createAllMarkers, resetMainMarker, removeAllMarkers, closePopup};

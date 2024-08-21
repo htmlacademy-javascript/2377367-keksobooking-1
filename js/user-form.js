@@ -3,6 +3,7 @@ import {sendData} from './api.js';
 import {resetAvatar} from './avatar.js';
 import {resetPhoto} from './photo.js';
 import {filtersForm} from './filter-user.js';
+import {closePopup, resetMainMarker} from './map.js';
 
 const adForm = document.querySelector('.ad-form');
 const submitButton = adForm.querySelector('.ad-form__submit');
@@ -66,7 +67,9 @@ const setMinPrice = () => {
   price.setAttribute('min', TYPE_COSTS[typeOfHousing.value]);
 };
 
-typeOfHousing.addEventListener('change', setMinPrice);
+typeOfHousing.addEventListener('change', () => {
+  setMinPrice();
+});
 
 const validatePrice = () => Number(price.value) >= Number(TYPE_COSTS[typeOfHousing.value]);
 
@@ -132,6 +135,9 @@ const onResetButton = () => {
   resetPhoto();
   sliderReset();
   filtersForm.reset();
+  closePopup();
+  resetMainMarker();
+
 };
 
 resetButton.addEventListener('click', onResetButton);
@@ -141,6 +147,8 @@ const resetForm = () => {
   sliderReset();
   resetAvatar();
   resetPhoto();
+  closePopup();
+  resetMainMarker();
 };
 
 const formUpdateOnSuccess = () => {
