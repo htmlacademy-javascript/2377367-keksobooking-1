@@ -41,7 +41,7 @@ function hideMessage () {
   document.removeEventListener('keydown', onMessageEscKeydown);
   document.removeEventListener('click', onOverlayClick);
   bodyElement.style.overflow = 'auto';
-};
+}
 
 const showAlert = (message) =>{
   const alertContainer = document.createElement('div');

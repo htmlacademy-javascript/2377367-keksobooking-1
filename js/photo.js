@@ -1,5 +1,4 @@
 const PHOTO_TYPES = ['jpg', 'jpeg', 'png'];
-
 const photoChooser = document.querySelector('.ad-form__upload input[type=file]');
 const previewPhoto = document.querySelector('.ad-form__photo');
 

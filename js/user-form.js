@@ -3,6 +3,7 @@ import {sendData} from './api.js';
 import {resetAvatar} from './avatar.js';
 import {resetPhoto} from './photo.js';
 import {filtersForm} from './filter-user.js';
+import {closePopup, resetMainMarker} from './map.js';
 
 const adForm = document.querySelector('.ad-form');
 const submitButton = adForm.querySelector('.ad-form__submit');
@@ -42,13 +43,13 @@ const getGuestsErrorMessage = () => `Количество комнат (${rooms.
 pristine.addValidator(guests, validateGuests, getGuestsErrorMessage);
 pristine.addValidator(rooms, validateRooms, getGuestsErrorMessage);
 
-rooms.addEventListener('change', onRoomsGuestsChange);
-guests.addEventListener('change', onRoomsGuestsChange);
-
-function onRoomsGuestsChange () {
+const onRoomsGuestsChange = () => {
   pristine.validate(rooms);
   pristine.validate(guests);
-}
+};
+
+rooms.addEventListener('change', onRoomsGuestsChange);
+guests.addEventListener('change', onRoomsGuestsChange);
 
 const sliderPrice = document.querySelector('.ad-form__slider');
 const typeOfHousing = adForm.querySelector('#type');
@@ -66,21 +67,16 @@ const setMinPrice = () => {
   price.setAttribute('min', TYPE_COSTS[typeOfHousing.value]);
 };
 
-typeOfHousing.addEventListener('change', setMinPrice);
+typeOfHousing.addEventListener('change', () => {
+  setMinPrice.reset();
+});
 
 const validatePrice = () => Number(price.value) >= Number(TYPE_COSTS[typeOfHousing.value]);
-
 
 const getPriceErrorMessage = () => `Цена выбранного типа жилья не менее ${TYPE_COSTS[typeOfHousing.value]} рублей за ночь`;
 
 
 pristine.addValidator(price, validatePrice, getPriceErrorMessage);
-
-typeOfHousing.addEventListener('change', onTypeOfHousingChange);
-
-function onTypeOfHousingChange () {
-  pristine.validate(price);
-}
 
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
@@ -123,6 +119,12 @@ typeOfHousing.addEventListener('change', () => {
   });
 });
 
+const onTypeOfHousingChange = () => {
+  pristine.validate(price);
+};
+
+typeOfHousing.addEventListener('change', onTypeOfHousingChange);
+
 const sliderReset = () => {
   sliderPrice.noUiSlider.set(TYPE_COSTS[typeOfHousing.value]);
 };
@@ -132,6 +134,9 @@ const onResetButton = () => {
   resetPhoto();
   sliderReset();
   filtersForm.reset();
+  closePopup();
+  resetMainMarker();
+  pristine.reset();
 };
 
 resetButton.addEventListener('click', onResetButton);
@@ -141,6 +146,8 @@ const resetForm = () => {
   sliderReset();
   resetAvatar();
   resetPhoto();
+  closePopup();
+  resetMainMarker();
 };
 
 const formUpdateOnSuccess = () => {

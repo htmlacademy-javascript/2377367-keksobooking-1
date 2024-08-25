@@ -47,6 +47,6 @@ const getNewCardElement = (card) => {
   return cardElement;
 };
 
-export {getNewCardElement};
+export {getNewCardElement, cardTemplate};
 
 
