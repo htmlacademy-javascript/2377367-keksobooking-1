@@ -78,12 +78,17 @@ const getFilteredOffersByType = (offers) => {
 };
 
 const setOnFiltersChange = ({ createAllMarkers, removeAllMarkers }, offers) =>{
-  filtersForm.addEventListener('change', debounce(() => {
+  const updateMarkers = debounce(() => {
     removeAllMarkers();
     createAllMarkers(getFilteredOffersByType(offers));
   }
-  , RERENDER_DELAY)
-  );
+  , RERENDER_DELAY);
+  filtersForm.addEventListener('change', () => {
+    updateMarkers();
+  });
+  filtersForm.addEventListener('reset', () => {
+    updateMarkers();
+  });
 };
 
 export {setOnFiltersChange, filtersForm};
